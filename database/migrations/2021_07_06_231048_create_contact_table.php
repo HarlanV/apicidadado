@@ -15,8 +15,8 @@ class CreateContactTable extends Migration
     {
         Schema::create('contact', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->comment('Deve indicar se é email ou telefone (email//tel)');
-            $table->string('phone')->comment('Preencher com o email ou telefone do cidadao');
+            $table->string('type')->comment('Deve indicar se é email ou telefone (email//tel)');
+            $table->string('contact')->comment('Preencher com o email ou telefone do cidadao');
             $table->foreignId('citizen_id')
                 ->references('id')
                 ->on('citizen');
