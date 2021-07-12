@@ -29,24 +29,37 @@ class Cidadao extends Model
      */
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
+
+    protected $appends = ["links"];
 
     /**
      * Relationship with contact (n to n)
      * 
      */
-    public function contato()
+    public function contatos()
     {
-        return $this->hasMany(Contato::class);
+        return $this->hasOne(Contato::class);
     }
 
     /**
      * Relationship with adress (n to n)
      * 
      */
-    public function enderco()
+    public function enderecos()
     {
-        return $this->hasMany(Endereco::class);
+        return $this->hasOne(Endereco::class);
     }
+
+    public function getLinksAttribute()
+    {        
+        return [
+            "self" => "/api/". $this["cpf"],
+            "contato" => '/api/'. $this["cpf"] .'/contato/',
+            "endereco" => '/api/'. $this["cpf"] .'/endereco/',
+        ];
+    }
+
 }

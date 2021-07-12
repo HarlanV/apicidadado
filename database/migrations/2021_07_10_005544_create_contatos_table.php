@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContatoTable extends Migration
+class CreateContatosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateContatoTable extends Migration
      */
     public function up()
     {
-        Schema::create('contato', function (Blueprint $table) {
+        Schema::create('contatos', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo')->comment('Deve indicar se é email ou telefone (email//tel)');
-            $table->string('contato')->comment('Preencher com o email ou telefone do cidadao');
+            $table->string('email')->comment('Preencher com o email do cidadao');
+            $table->string('celular')->comment('Preencher com o telefone do cidadao');
             $table->foreignId('cidadao_id')
                 ->references('id')
-                ->on('cidadao');
+                ->on('cidadaos')
+                ->onDelete('cascade');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -32,6 +32,6 @@ class CreateContatoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contato');
+        Schema::dropIfExists('contatos');
     }
 }

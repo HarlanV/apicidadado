@@ -32,11 +32,23 @@ class Endereco extends Model
      */
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'cidadao'
     ];
+
+    protected $appends = ["links"];
 
     public function cidadao()
     {
         return $this->belongsTo(Cidadao::class);
     }
+
+    public function getLinksAttribute()
+    {        
+        return [
+            "self" => '/api/'. $this->cidadao["cpf"].'/endereco/',
+            "cidadao" => "/api/".$this->cidadao["cpf"],
+        ];
+    }
+
 }

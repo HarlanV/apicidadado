@@ -16,8 +16,8 @@ class Contato extends Model
      * @var array
      */
     protected $fillable = [
-        'tipo',
-        'contato'
+        'celular',
+        'email'
     ];
 
     /**
@@ -30,8 +30,18 @@ class Contato extends Model
         'updated_at'
     ];
 
+    protected $appends = ["links"];
+
     public function cidadao()
     {
         return $this->belongsTo(Cidadao::class);
+    }
+
+    public function getLinksAttribute()
+    {        
+        return [
+            "self" => '/api/'.$this->cidadao["cpf"] .'/contato/',
+            "cidadao" => "/api/".$this->cidadao["cpf"],
+        ];
     }
 }

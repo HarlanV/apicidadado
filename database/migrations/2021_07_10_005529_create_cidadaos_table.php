@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCidadaoTable extends Migration
+class CreateCidadaosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateCidadaoTable extends Migration
      */
     public function up()
     {
-        Schema::create('cidadao', function (Blueprint $table) {
+        Schema::create('cidadaos', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->string('sobrenome');
             $table->string('cpf')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +30,6 @@ class CreateCidadaoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cidadao');
+        Schema::dropIfExists('cidadaos');
     }
 }
