@@ -1,62 +1,96 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# DOCUMENTAÇÃO
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## SOBRE O PROJETO
+O projeto trata-se de uma API para armazenamento e manipulação de dados de cidadão. Trata-se de um projeto para fins acadêmicos e de portifólio, sem finalidade de implementação de caso real.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### FRAMEWORK UTILIZADO
+O projeto se utilizou da ferramenta Laravel como framework principal. A escolha deste framwork foi devido principalmente devido a alta aceitação de mercado apesar de sua gratuidade. Além disso, pode ser contado com uma comunidade ativa para resolução de problemas e atualização posterior. 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### FERRAMENTAS DE PRÉ-REQUISTO
+Para podermos iniciar a instalação do projeto, é necessário ter as seguintes ferramentas já instaladas:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1 - PHP 7 ou superiror
 
-## Learning Laravel
+2 - COMPOSER
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Além disso, é necessário uma conexão com banco de dados já devidamente configurado. 
+## INSTALAÇÃO
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+### DOWNLOAD
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+### INSTALAÇÃO
+Para a instalação deste projeto utilizaremos o composer como gerenciador de dependencias, facilitando assim o trabalho. Depois de baixado e extraído o projeto, abra o seu cmd dentro da pasta raiz do projeto. Aqui nós vamos utilizar o composer para instalar. Use o seguinte comando:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+> composer install
 
-## Contributing
+### CONFIGURAÇÃO
+Instalado o projeto, abra seu arquivo de variáveis de ambiente(.env) que deve estar na pasta raiz.
+Caso o arquivo não tenha sido criado/importado, você terá um outro arquivo de exemplo (.env.example). Faça uma copia do arquivo e renomeie-o para ".env".
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Já com o arquivo correto aberto, você deve agora configurar seu ambiente de trabalho.
+Procure as variáveis de banco de dados e configure-as substituindo os valores pelos do seu ambiente de trabalho.
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+DB_CONNECTION={Qual seu BD}
+DB_HOST={endereço host do BF}
+DB_PORT= {porta de acesso do BD}
+DB_DATABASE={BD a ser utilizado}
+DB_USERNAME=root{nome do usuario do BD}
+DB_PASSWORD={senha do usuario}
 
-## Security Vulnerabilities
+Além das configurações do banco, aqui deve ser configurado também sua URL de acesso. Por Padrão é utilizada o Localhost com a porta 8000. Caso seja necessário trocar a porta de acesso, será mostrado mais a baixo na utilização.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### PREPARANDO OS BD
+Após configurado sua aplicação, é necessário agora preparar o BD com as tabelas necessárias. Neste caso, nós utilizaremos o Eloquent para executar as migrations já preparadas. Após isso, iremos inserir um caso de exemplo (esta etápa é optativa).
 
-## License
+Para preparar o BD execute o comando
+> php artisan migrate
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Para inserir um cidadão de exemplo (opcional) utilize
+> php artisan db:seed
+
+### Servindo a aplicação
+Para servir a aplicação rodamos o comando
+> php artisan serve
+
+Caso se deseje especificar a porta de acesso, utilizamos no lugar do comando acima o seguinte:
+> php artisan serve --port=8080
+
+Assim que a aplicação estiver disponível, a seguinte mensagem deve ser exibida no seu cmd
+
+"PHP 7.4.3 Development Server (http://127.0.0.1:8000) started"
+
+Pronto, sua aplicação está funcionando.
+
+
+## UTILIZAÇÃO
+
+### Requisitos cidadão. 
+Para as etapas de inserção e alteração de dados precisaremos preencher dados como cpf, email, etc. Para isso, as regras definias a baixo são válidas para todos os casos.
+
+    {nome} => Minimo de 2 caracteres,
+    {sobrenome} => Sem requisitos,
+    {cpf} => Não deve ser um valor repetido,
+    {email} => Não deve ser um valor repetido,
+    {celular} => Maximo de 12 caracteres minimo de 9 caracteres,
+    {cep} => Exatos 8 caracteres,
+
+Sempre que um dos campos acima for citado, os parametros devem ser preechidos conforme orientados acima.
+### Utilização via linha de comando (cmd)
+
+Podemos inserir um cidadão diretamente via linha de comando. A inserção pode ser feita de duas maneiras: de maneira dinâmica, onde os campos vão sendo inseridos por vários inputs ou de forma rápida, feito através de um único input de estrutura pré-definida.
+
+Os comandos podem ser vistos na listagem geral, a qual temos acesso digitando simplemente
+> php artisan
+
+As vias de inserção devem aparecer disponíveis agrupadas sob "cidadao"
+
+#### Inserção via cmd dinamicamente:
+
+
+
+
+
