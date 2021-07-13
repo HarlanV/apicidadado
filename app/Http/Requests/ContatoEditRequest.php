@@ -13,7 +13,7 @@ class ContatoEditRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,9 +24,25 @@ class ContatoEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'contatos' => 'required',
-            'contatos.email' => 'nullable|unique:App\Models\Contato,contato',
-            'contatos.celular' => 'nullable|max:12|min:9',
+            'email' => 'sometimes|unique:App\Models\Contato,email',
+            'celular' => 'nullable|max:12|min:9'
         ];
     }
+
+
+    /**
+     * Get the messages
+     * 
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório.',
+            'celular.min' => 'Confira se celular para contato está correto',
+            'celular.max' => 'Confira se celular para contato está correto',
+            'email.unique' => 'Email já foi cadatrado. Por favor, confira os dados ou entre em contato conosco',
+        ];
+    }
+
 }

@@ -10,7 +10,11 @@ class ContatoService
 
     public function show($cpf)
     {
-        return Cidadao::where('cpf', $cpf)->first()->contatos;
+        $citizen = Cidadao::where('cpf', $cpf)->first();
+        if (!$citizen instanceof Cidadao) {
+            return "Dados não localizados.";
+        }
+        return $citizen->contatos;
     }
 
     public function createContacts($citizen, $contact)
@@ -19,25 +23,34 @@ class ContatoService
         $contato = $citizen->contatos()->create(
             [
                 'email'=>$contact['email'],
-                'celular'=> $$contact['celular'],
+                'celular'=> $contact['celular'],
             ]
         );
 
+
         if (!$contato instanceof Contato) {
-            return "Confira suas informações de contato";
+            return[
+                'erro'=>true,
+                'message'=> 'Problemas na inserção do contato. Aguarde um momemento e tente novamente.'
+            ];
         }
 
+        return[
+            'erro'=>false,
+            'message'=> 'OK'
+        ];
         return $contato;
     }
 
 
-    public function update($citizen, $data)
-    {        
-        $citizen->contatos()->fill($data);
+    public function update($contact, $data)
+    {   
+        $contact->fill($data);
 
-        $citizen->save();
+        $contact->save();
 
-        return $citizen;
+        #dd($contact);
+        return $contact;
     }
 
 

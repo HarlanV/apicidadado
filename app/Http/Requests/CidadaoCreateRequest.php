@@ -28,7 +28,7 @@ class CidadaoCreateRequest extends FormRequest
             'sobrenome' => 'required',
             'cpf' => 'required|unique:App\Models\Cidadao,cpf',
             'contatos' => 'required',
-            'contatos.email' => 'required|unique:App\Models\Contato,contato',
+            'contatos.email' => 'required|unique:App\Models\Contato,email',
             'contatos.celular' => 'required|max:12|min:9',
             'cep' => 'required|min:8|max:8',
         ];

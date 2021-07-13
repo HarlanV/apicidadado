@@ -47,15 +47,15 @@ class EnderecoController extends Controller
      */
     public function update($cpf, EnderecoEditRequest $request): JsonResponse
     {
-        $citizen = $this->service->show($cpf);
+        $address = $this->service->show($cpf);
 
-        if (!$citizen instanceof Cidadao) {
+        if (!$address instanceof Endereco) {
             return response()
-                ->json($citizen, Response::HTTP_NOT_FOUND);
+                ->json($address, Response::HTTP_NOT_FOUND);
         }
 
         $updated = $this->service->update(
-            $citizen,
+            $address,
             $request->validated()
         );
 

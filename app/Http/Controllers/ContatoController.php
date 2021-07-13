@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContatoEditRequest;
-use App\Models\Cidadao;
 use App\Models\Contato;
 use App\Services\ContatoService;
 use Illuminate\Http\Request;
@@ -28,14 +27,14 @@ class ContatoController extends Controller
      */
     public function show($cpf)
     {
-        $address = $this->service->show($cpf);
+        $contact = $this->service->show($cpf);
 
-        if (!$address instanceof Contato) {
+        if (!$contact instanceof Contato) {
             return response()
-                ->json([], Response::HTTP_NOT_FOUND);
+                ->json($contact, Response::HTTP_NOT_FOUND);
         }
         return response()
-            ->json($address, Response::HTTP_OK);
+            ->json($contact, Response::HTTP_OK);
     }
 
     /**
@@ -45,17 +44,17 @@ class ContatoController extends Controller
      * @param   \App\Http\Requests\CidadaoEditRequest   $request
      * @return  \Illuminate\Http\JsonResponse;
      */
-    public function update($cpf, ContatoEditRequest $request): JsonResponse
+    public function update(ContatoEditRequest $request, $cpf): JsonResponse
     {
-        $citizen = $this->service->show($cpf);
+        $contact = $this->service->show($cpf);
 
-        if (!$citizen instanceof Cidadao) {
+        if (!$contact instanceof Contato) {
             return response()
-                ->json($citizen, Response::HTTP_NOT_FOUND);
+                ->json($contact, Response::HTTP_NOT_FOUND);
         }
 
         $updated = $this->service->update(
-            $citizen,
+            $contact,
             $request->validated()
         );
 

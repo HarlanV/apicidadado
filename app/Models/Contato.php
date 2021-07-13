@@ -27,7 +27,8 @@ class Contato extends Model
      */
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'cidadao'
     ];
 
     protected $appends = ["links"];
@@ -41,7 +42,7 @@ class Contato extends Model
     {        
         return [
             "self" => '/api/'.$this->cidadao["cpf"] .'/contato/',
-            "cidadao" => "/api/".$this->cidadao["cpf"],
+            "cidadao" => "/api/".$this->cidadao["cpf"].'/',
         ];
     }
 }

@@ -26,13 +26,20 @@ class EnderecoService
         $adress = self::addressConfig($data);
 
         if ($adress === false) {
-            return false;
+
+            return[
+                'erro'=>true,
+                'message'=> 'CEP não localizado. Confira o campo e tente novamente.'
+            ];
         }
 
         $adress = $this->createEndereco($citizen, $adress);
 
         if (!$adress instanceof Endereco) {
-            return false;
+            return[
+                'erro'=>true,
+                'message'=> 'Problemas na inserção do endereco. Aguarde um momemento e tente novamente.'
+            ];
         }
 
         return $adress;
@@ -46,25 +53,25 @@ class EnderecoService
                 'logradouro' => $data["logradouro"],
                 'bairro' => $data["bairro"],
                 'cidade' => $data["cidade"],
-                'estado' => $data["uf"],
+                'estado' => $data["estado"],
             ]
         );
     }
 
     public static function addressConfig($data)
     {
-
+       
         if (!array_key_exists("cep", $data)) {
             return false;
         }
-
+       
         $address = EnderecoService::importAddres($data["cep"]);
-
+   
         if (array_key_exists("erro", $address)) {
             return false;
         } else {
             return [
-                "cep" => $data["endereco"]["cep"],
+                "cep" => $data["cep"],
                 "logradouro" => $address["logradouro"],
                 "bairro" => $address["bairro"],
                 "cidade" => $address["localidade"],
@@ -73,19 +80,19 @@ class EnderecoService
         }
     }
 
-    public function update($citizen, $data)
+    public function update($adress, $data)
     {        
-        $address = $this->EnderecoService::addressConfig($data);
+        $newAddress = self::addressConfig($data);
 
-        if (!$address === false) {
-            $data["endereco"] = $address;
+        if ($newAddress === false) {
+            return 'CEP não localizado. Confira o campo e tente novamente.';
         }
 
-        $citizen->enderecos()->fill($data);
+        $adress->fill($newAddress);
 
-        $citizen->save();
+        $adress->save();
 
-        return $citizen;
+        return $adress;
     }
 
 }

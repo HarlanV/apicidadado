@@ -22,25 +22,14 @@ class CidadaoController extends Controller
     }
 
     /**
-     * This function...
+     * This function returns all citizen, ordered alphabetically
      * 
      * @param   
      * @return  
      */
     public function index(Request $request)
     {
-        return Cidadao::paginate($request->per_page);
-    }
-
-    /**
-     * 
-     * 
-     * @param   
-     * @return  
-     */
-    public function listAll()
-    {
-        return Cidadao::all();
+        return Cidadao::orderBy('nome', 'asc')->paginate(10);
     }
 
     /**
@@ -135,7 +124,6 @@ class CidadaoController extends Controller
 
     }
 
-    
     /**
      * Removes a citizen from database by his cpf
      * 

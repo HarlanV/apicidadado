@@ -18,6 +18,7 @@ class CidadaoService
 
     public function create($data)
     {
+     
         DB::beginTransaction();
 
         $citizen = $this->insertCitizen($data);
@@ -29,16 +30,19 @@ class CidadaoService
 
         $service = new ContatoService;
 
-        if ($service->createContacts($citizen, $data["contatos"]) === false) {
+        $contact = $service->createContacts($citizen, $data["contatos"]);
+        if ($contact["erro"] === true) {
             DB::rollBack();
-            return false;
+            return $contact["message"];
         }
 
         $service = new EnderecoService;
 
-        if ($service->insertAdress($citizen, $data) === false) {
+        $address = $service->insertAdress($citizen, $data);
+
+        if ($address["erro"] === true) {
             DB::rollBack();
-            return false;
+            return $address["message"];
         }
 
         DB::commit();
